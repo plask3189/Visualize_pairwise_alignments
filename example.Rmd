@@ -5,20 +5,19 @@ library(pheatmap)
 ```
 
 ```{r}
-submat <-matrix(-1, nrow = 26, ncol = 26, dimnames = list(letters, letters))
-diag(submat) <- 0
-psa <- pwalign::pairwiseAlignment(pattern = c("succeed", "precede"), subject = "supersede",
-substitutionMatrix = submat,
-gapOpening = 0, gapExtension = -1)
-```
-
-
-
-```{r}
 dna_sequences <- DNAStringSet(c("AGCTGATCGAGCGCCATCG", "AGCTGATCGAGCTGGCTTGCCATCG", "AGCTGATCGAGTCGACTTGCCATCG"))
 reference <- DNAStringSet(c("AGCTGATCGAGCTTGCCATCG"))
 psa <- pwalign::pairwiseAlignment(pattern = dna_sequences, subject = reference,
 gapOpening = 0, gapExtension = -1)
-plot_single_subject_alignments(psa)
+psa 
+```
+
+```{r}
+plot_single_subject_alignments(psa, view_indels=FALSE)
+```
+
+
+```{r}
+plot_single_subject_alignments(psa, view_indels=TRUE)
 ```
 

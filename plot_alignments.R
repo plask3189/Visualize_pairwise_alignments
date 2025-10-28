@@ -2,23 +2,19 @@
 library(dplyr)
 library(Biostrings)
 library(pheatmap)
-plot_single_subject_alignments<- function(psa, view_deletions = TRUE, 
-                                          view_insertions=TRUE){
+plot_single_subject_alignments<- function(psa, view_indels=FALSE){
   # get insertions or deletions 
-  reference_subject <-(strsplit(as.character(unaligned(subject(psa))), split = "")[[1]])
+  reference_subject <-(strsplit(as.character(pwalign::unaligned(subject(psa))), split = "")[[1]])
   reference_subject <- t(as.matrix(reference_subject))
   
   psa_mat<- as.matrix(psa)
   psa_mat <- rbind(psa_mat, reference_subject)
   
-  if(view_deletions == TRUE){
+  if(view_indels == TRUE){
     psa_mat<- add_deletions_to_matrix(psa_mat, psa)
-  }
-  if(view_insertions == TRUE) {
     psa_mat <- add_insertions_to_matrix(psa_mat, psa)
   }
 
-  
   alphabet <- sort(unique(as.vector(psa_mat)))
   alphabet_nums <- seq_len(length(alphabet))  
   alphabet_map <- setNames(alphabet_nums, alphabet)
@@ -28,7 +24,14 @@ plot_single_subject_alignments<- function(psa, view_deletions = TRUE,
     ncol = ncol(psa_mat),
     dimnames = dimnames(psa_mat)    
   )
-  base_colors <- RColorBrewer::brewer.pal(length(alphabet), "Set3")
+  
+  pallette<- "Paired"
+  if (length(alphabet)<= RColorBrewer::brewer.pal.info[pallette, "maxcolors"] ){
+    base_colors <- RColorBrewer::brewer.pal(length(alphabet), pallette)
+  } else {
+    base_colors <- rainbow(length(alphabet))
+  }
+  
   heatmap<-pheatmap(
     psa_mat_num,
     color = base_colors,
