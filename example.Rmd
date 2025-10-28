@@ -2,6 +2,7 @@
 library(dplyr)
 library(Biostrings)
 library(pheatmap)
+source("~/Library/Mobile Documents/com~apple~CloudDocs/Documents/Miles_Lab/Visualize_pairwise_alginments/plot_alignments.R")
 ```
 
 ```{r}

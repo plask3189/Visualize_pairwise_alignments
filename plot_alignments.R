@@ -55,9 +55,9 @@ add_insertions_to_matrix<- function(psa_mat, psa){
     for(insertion_index in seq_along(read_insertion)){ # for each start location for this read
       new_column<- matrix(nrow = nrow(psa_mat), ncol = width(read_insertion[insertion_index,])) # rows are reads
       new_column[read_index, 1:width(read_insertion[insertion_index,]) ] <- "Ins" # record there's an insertion for read number i 
-      psa_mat <- cbind(psa_mat[, 1:insertion_pos],# place new column at insertion position
+      psa_mat <- cbind(psa_mat[, 1:insertion_index],# place new column at insertion position
                          new_column, 
-                         psa_mat[, (insertion_pos + 1):ncol(psa_mat)])
+                         psa_mat[, (insertion_index + 1):ncol(psa_mat)])
     }
   }
   psa_mat[is.na(psa_mat)] <- "None"
