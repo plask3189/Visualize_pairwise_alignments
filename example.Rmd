@@ -6,7 +6,7 @@ source("~/Library/Mobile Documents/com~apple~CloudDocs/Documents/Miles_Lab/Visua
 ```
 
 ```{r}
-dna_sequences <- DNAStringSet(c("AGCTGATCGAGCGCCATCG", "AGCTGATCGAGCTGGCTTGCCATCG", "AGCTGATCGAGTCGACTTGCCATCG"))
+dna_sequences <- DNAStringSet(c("AGCTGATCGAGCGCCATCG", "AGCTGATCGAGCTGGCTTGCCATCG", "AGCTGATCGAGTCGACTTGCCATCG", "AGCTGATCGAGCTGGCTTTGGCGCCATCG", "AGCTGATCG", "AGCTGCTTTGGCGCCATCG"))
 reference <- DNAStringSet(c("AGCTGATCGAGCTTGCCATCG"))
 psa <- pwalign::pairwiseAlignment(pattern = dna_sequences, subject = reference,
 gapOpening = 0, gapExtension = -1)
